@@ -1,0 +1,128 @@
+<ion-content>
+  <ion-card *ngIf="!selectedCountryBase" class="custom-card">
+    <ion-card-header>
+      <ion-card-title class="conversion-label">De:</ion-card-title>
+    </ion-card-header>
+    <ion-searchbar
+      [(ngModel)]="searchTermBase"
+      (ionInput)="search('base')"
+    ></ion-searchbar>
+
+    <ion-list class="country-list">
+      <ion-item
+        *ngFor="let country of filteredCountriesBase"
+        (click)="selectCountry('base', country)"
+      >
+        <ion-avatar slot="start">
+          <img
+            *ngIf="country.flagLoaded"
+            [src]="country.flag.src"
+            alt="{{ country.name }} Flag"
+          />
+        </ion-avatar>
+        <ion-label class="country-info">
+          <h2>{{ country.name }}</h2>
+          <p>{{ country.currencyCode }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-card class="custom-card" *ngIf="selectedCountryBase">
+    <div class="content-wrapper">
+      <ion-avatar>
+        <img
+          *ngIf="selectedCountryBase.flagLoaded"
+          [src]="selectedCountryBase.flag.src"
+          alt="{{ selectedCountryBase.name }} Flag"
+        />
+      </ion-avatar>
+      <ion-label class="country-info">
+        <h2>{{ selectedCountryBase.name }}</h2>
+        <p>{{ selectedCountryBase.currencyCode }}</p>
+      </ion-label>
+    </div>
+  </ion-card>
+
+  <ion-card *ngIf="!selectedCountryTarget" class="custom-card">
+    <ion-card-header>
+      <ion-card-title class="conversion-label">Para:</ion-card-title>
+    </ion-card-header>
+    <ion-searchbar
+      [(ngModel)]="searchTermTarget"
+      (ionInput)="search('target')"
+    ></ion-searchbar>
+
+    <ion-list class="country-list">
+      <ion-item
+        *ngFor="let country of filteredCountriesTarget"
+        (click)="selectCountry('target', country)"
+      >
+        <ion-avatar slot="start">
+          <img
+            *ngIf="country.flagLoaded"
+            [src]="country.flag.src"
+            alt="{{ country.name }} Flag"
+          />
+        </ion-avatar>
+        <ion-label class="country-info">
+          <h2>{{ country.name }}</h2>
+          <p>{{ country.currencyCode }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-card class="custom-card" *ngIf="selectedCountryTarget">
+    <div class="content-wrapper">
+      <ion-avatar>
+        <img
+          *ngIf="selectedCountryTarget.flagLoaded"
+          [src]="selectedCountryTarget.flag.src"
+          alt="{{ selectedCountryTarget.name }} Flag"
+        />
+      </ion-avatar>
+      <ion-label class="country-info">
+        <h2>{{ selectedCountryTarget.name }}</h2>
+        <p>{{ selectedCountryTarget.currencyCode }}</p>
+      </ion-label>
+    </div>
+  </ion-card>
+
+  <ion-card class="custom-card">
+    <ion-card-header>
+      <ion-card-title>Valor de entrada</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-input
+        class="input"
+        [(ngModel)]="inputValue"
+        type="number"
+      ></ion-input>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="custom-card">
+    <ion-card-header>
+      <ion-card-title>Valor convertido</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-label class="output"
+        >{{ convertedValue | currency: targetCurrencyCode }}</ion-label
+      >
+    </ion-card-content>
+  </ion-card>
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+  <ion-card class="custom-card">
+    <ion-button class="action-button convert-button" (click)="convertCurrency()"
+      >Converter</ion-button
+    >
+    <ion-button class="action-button invert-button" (click)="invertCurrencies()"
+      >Inverter moedas</ion-button
+    >
+    <ion-button class="action-button clear-button" (click)="clearValues()"
+      >Limpar</ion-button
+    >
+  </ion-card>
+</ion-content>

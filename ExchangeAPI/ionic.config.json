@@ -1,0 +1,7 @@
+{
+  "name": "ExchangeAPI",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
